@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>管理系统</title>
+</head>
+<body>
+    
+    <div class="container header"></div>
+    <div class="container">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                         <ul class="nav navbar-nav">
+                            
+                            <li style="font-size:18px;"><a href="#">职位管理</a></li>
+                        
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right" id="position-tianjia">
+                            <li data-toggle="modal" data-target="#tianmyModal">
+                                    <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+                                          添加
+                                    </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+        </nav>
+    </div>
+    <div class="container">
+        <table class="table table-bordered table-hover table-list">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>公司logo</th>
+                    <th>职位名称</th>
+                    <th>公司名称</th>
+                    <th>工作经验</th>
+                    <th>职位类型</th>
+                    <th>工作地点</th>
+                    <th>职位薪资</th>
+                    <th  colspan="2">操作</th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+               
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation" class="page-list">
+            <ul class="pagination fengye">
+                        
+            </ul>
+        </nav>
+    </div>
+   <!-- list模板 -->
+   <script type="text/html" id="position_list">
+        {{each list prod index}}
+            <tr data-id={{prod._id}} style="height:60px;">
+                <td>{{index+1}}</td>
+                <td class="logo"><img src="{{prod.logo}}" style="height:50px;"></td>
+                <td class="position">{{prod.position}}</td>
+                <td class="company">{{prod.company}}</td>
+                <td class="jingyan">{{prod.jingyan}}</td>
+                <td class="leixing">{{prod.leixing}}</td>
+                <td class="didian">{{prod.didian}}</td>
+                <td class="salary">{{prod.salary}}</td>
+                <td colspan="2" style="line-height:67px;">
+                    <a href="#" data-toggle="modal" data-target="#upmyModal" class="updete">修改</a>
+                    <a href="#" class="delete">删除</a>
+                </td>
+            </tr>
+        {{/each}}
+    </script>
+    <!-- 修改模态框 -->
+    <div class="modal fade" id="upmyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="updatemyModalLabel">职位信息</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="alert alert-danger hide up_error" role="alert">用户修改失败</div>
+                    <form class="upform" autocomplete='off'>
+                        <div class="form-group hide">
+                                <label for="upid">id</label>
+                                <input type="text" class="form-control" name="id" id="upid" placeholder="选择任何文件">
+                        </div>
+                        <div class="form-group">
+                            <label for="uplogo">公司logo</label>
+                            <input type="hidden" name="logo_exist" class="logo_exist">
+                            <input type="file" class="form-control" name="logo" id="uplogo" placeholder="选择任何文件">
+                        </div>
+                        <div class="form-group">
+                            <label for="upposition">职位名称</label>
+                            <input type="text" class="form-control" name="position" id="upposition" placeholder="请输职位名称">
+                        </div>
+                        <div class="form-group">
+                                <label for="upcompany">公司名称</label>
+                                <input type="text" class="form-control" name="company" id="upcompany" placeholder="输入公司名称">
+                        </div>
+                        <div class="form-group">
+                            <label for="upgongjingye">工作经验</label>
+                            <input type="text" class="form-control" name="jingyan" id="upgongjingye" placeholder="输入工作经验">
+                        </div>
+                        <div class="form-group">
+                            <label for="upleixing">职位类型</label>
+                            <input typse="password" class="form-control" name="leixing" id="upleixing" placeholder="请输职位类型">
+                        </div>
+                        <div class="form-group">
+                                <label for="updidian">工作地点</label>
+                                <input type="text" class="form-control" name="didian" id="updidian" placeholder="输入工作地点">
+                        </div>
+                        <div class="form-group">
+                            <label for="upxinzhi">岗位薪资</label>
+                            <input type="text" class="form-control" name="salary" id="upxinzhi" placeholder="输入岗位薪资">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="upbtn">修改</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- 添加模态框 -->
+        <div class="modal fade" id="tianmyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="inModalLabel">职位信息</h4>
+                    </div>
+                    <div class="modal-body">
+                         <div class="alert alert-danger hide selet_error" role="alert">用户添加，请稍后重试...</div>
+                        <form class="addform">
+                            <div class="form-group">
+                                <label for="inlogo">公司logo</label>
+                                <input type="file" class="form-control" name="logo" id="inlogo" placeholder="选择任何文件">
+                            </div>
+                            <div class="form-group">
+                                <label for="inzhiname">职位名称</label>
+                                <input type="text" class="form-control" name="position" id="inzhiname" placeholder="请输职位名称">
+                            </div>
+                            <div class="form-group">
+                                    <label for="ingongname">公司名称</label>
+                                    <input type="text" class="form-control" name="company" id="ingongname" placeholder="输入公司名称">
+                            </div>
+                            <div class="form-group">
+                                <label for="ingongjingye">工作经验</label>
+                                <input type="text" class="form-control" name="jingyan" id="ingongjingye" placeholder="输入工作经验">
+                            </div>
+                            <div class="form-group">
+                                <label for="inleixing">职位类型</label>
+                                <input typse="password" class="form-control" name="leixing" id="inleixing" placeholder="请输职位类型">
+                            </div>
+                            <div class="form-group">
+                                    <label for="indidian">工作地点</label>
+                                    <input type="text" class="form-control" name="didian" id="indidian" placeholder="输入工作地点">
+                            </div>
+                            <div class="form-group">
+                                <label for="inxinzhi">岗位薪资</label>
+                                <input type="text" class="form-control" name="salary" id="inxinzhi" placeholder="输入岗位薪资">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" id="inbtn">添加</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+    <script src="/lib/jquery/jquery-1.12.4.min.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script> 
+    <script src="/lib/artTemplate/template-web.js"></script>
+    <script src="/js/common/logModel.js"></script>
+    <script src="/js/common/regMoodel.js"></script>
+    <script src="/js/common/headr.js"></script>
+    <script src="/js/position/position.js"></script>
+</body>
+</html>
